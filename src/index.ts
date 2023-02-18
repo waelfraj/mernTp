@@ -12,15 +12,12 @@ const verif = (
 ) => {
 
   const op = req.query.op;
-  const a = req.query.n1;
-  const b = req.query.n2;
-
-  var x: number = +a;
-  var y: number = +b;
+  const a = Number(req.query.n1);
+  const b = Number(req.query.n2);
 
   if (
-    !Number.isNaN(x) &&
-    !Number.isNaN(y)
+    !Number.isNaN(a) &&
+    !Number.isNaN(b)
   ) {
     if (
       op === "add" ||
@@ -48,11 +45,8 @@ const calcul = (
 ) => {
  
   const op = req.query.op;
-  const a = req.query.n1;
-  const b = req.query.n2;
-
-  var x: number = +a;
-  var y: number = +b;
+  const a = Number(req.query.n1);
+  const b = Number(req.query.n2);
 
 
   switch (op) {
@@ -60,28 +54,35 @@ const calcul = (
       res
       .status(200)
       .send(
-        `la resultat de l'operation ${op} de ${a} et ${b} est egale a ${x+y}`
+        `la resultat de l'operation ${op} de ${a} et ${b} est egale a ${a+b}`
       );
       break;
     case "min":
       res
       .status(200)
       .send(
-        `la resultat de l'operation ${op} de ${a} et ${b} est egale a ${x-y}`
+        `la resultat de l'operation ${op} de ${a} et ${b} est egale a ${a-b}`
       );  
     break;
     case "mult":
       res
       .status(200)
       .send(
-        `la resultat de l'operation ${op} de ${a} et ${b} est egale a ${x*y}`
+        `la resultat de l'operation ${op} de ${a} et ${b} est egale a ${a*b}`
       ); 
     break;
     case "div":
+      if(b===0){
+        res
+      .status(200)
+      .send(
+        `Vous ne pouvez pas diviser sur 0`
+      );
+      }else
       res
       .status(200)
       .send(
-        `la resultat de l'operation ${op} de ${a} et ${b} est egale a ${x/y}`
+        `la resultat de l'operation ${op} de ${a} et ${b} est egale a ${a/b}`
       );   
     break;
       default:
