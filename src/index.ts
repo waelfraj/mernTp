@@ -23,15 +23,15 @@ const verif = (
     !Number.isNaN(y)
   ) {
     if (
-      op === "sum" ||
-      op === "sous" ||
+      op === "add" ||
+      op === "min" ||
       op === "mult" ||
       op === "div"
     )
       next();
     else {
       res.send(
-        "Error: you must choose sum or sous or mult ou div"
+        "Error: you must choose add or min or mult ou div"
       );
     }
   } else {
@@ -56,14 +56,14 @@ const calcul = (
 
 
   switch (op) {
-    case "sum":
+    case "add":
       res
       .status(200)
       .send(
         `la resultat de l'operation ${op} de ${a} et ${b} est egale a ${x+y}`
       );
       break;
-    case "sous":
+    case "min":
       res
       .status(200)
       .send(
