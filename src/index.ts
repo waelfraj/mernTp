@@ -41,7 +41,6 @@ const verif = (
 const calcul = (
   req: Request,
   res: Response,
-  next: NextFunction
 ) => {
  
   const op = req.query.op;
@@ -92,23 +91,13 @@ const calcul = (
 };
 
 app.get("/calcul",verif,calcul);
-
+app.get("*",(req :Request,res:Response) =>
+{
+  res.status(200).send("Error 404");
+})
 
 app.listen(3000, () => {
   console.log(
     "Server listening on port 3000"
   );
 });
-
-/*
-
-   
-    
-  }
-);
-*/
-
-/*
-
-
-*/
