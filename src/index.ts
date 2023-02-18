@@ -10,9 +10,11 @@ const verif = (
   res: Response,
   next: NextFunction
 ) => {
-  const {
-    params: { op, a, b },
-  } = req;
+
+  const op = req.query.op;
+  const a = req.query.n1;
+  const b = req.query.n2;
+
   var x: number = +a;
   var y: number = +b;
 
@@ -21,15 +23,15 @@ const verif = (
     !Number.isNaN(y)
   ) {
     if (
-      op === "sum" ||
-      op === "sous" ||
+      op === "add" ||
+      op === "min" ||
       op === "mult" ||
       op === "div"
     )
       next();
     else {
       res.send(
-        "Error: you must choose sum or sous or mult ou div"
+        "Error: you must choose add or min or mult ou div"
       );
     }
   } else {
@@ -44,22 +46,24 @@ const calcul = (
   res: Response,
   next: NextFunction
 ) => {
-  const {
-    params: { op, a, b },
-  } = req;
+ 
+  const op = req.query.op;
+  const a = req.query.n1;
+  const b = req.query.n2;
+
   var x: number = +a;
   var y: number = +b;
-  var s;
+
 
   switch (op) {
-    case "sum":
+    case "add":
       res
       .status(200)
       .send(
         `la resultat de l'operation ${op} de ${a} et ${b} est egale a ${x+y}`
       );
       break;
-    case "sous":
+    case "min":
       res
       .status(200)
       .send(
@@ -86,7 +90,8 @@ const calcul = (
     
 };
 
-app.get("/:op/:a/:b",verif,calcul);
+app.get("/calcul",verif,calcul);
+
 
 app.listen(3000, () => {
   console.log(
